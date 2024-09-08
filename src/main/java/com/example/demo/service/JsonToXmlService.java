@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.XMLJSONConverterI;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -9,21 +10,18 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class JsonToXmlService {
+public class JsonToXmlService implements XMLJSONConverterI {
 
-    private final ObjectMapper jsonMapper;
-    private final XmlMapper xmlMapper;
+	private final ObjectMapper jsonMapper;
+	private final XmlMapper xmlMapper;
 
-    public JsonToXmlService() {
-        this.jsonMapper = new ObjectMapper();
-        this.xmlMapper = new XmlMapper();
-    }
+	public JsonToXmlService() {
+		this.jsonMapper = new ObjectMapper();
+		this.xmlMapper = new XmlMapper();
+	}
 
-    public void convertJsonToXml(File inputFile, File outputFile) throws IOException {
-        // Read JSON data into a JsonNode
-        JsonNode jsonNode = jsonMapper.readTree(inputFile);
-        
-        // Write JsonNode as XML
-        xmlMapper.writeValue(outputFile, jsonNode);
-    }
+	public void convertJSONtoXML(File inputFile, File outputFile) throws IOException {
+		JsonNode jsonNode = jsonMapper.readTree(inputFile);
+		xmlMapper.writeValue(outputFile, jsonNode);
+	}
 }
